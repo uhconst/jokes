@@ -1,15 +1,14 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId = rootProject.ext.applicationId
-
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -42,10 +41,9 @@ android {
 
 }
 
-
 dependencies {
-    def dependencies = rootProject.ext.appDependencies
-    def testDependencies = rootProject.ext.appTestDependencies
+    def dependencies = rootProject.ext.presentationDependencies
+    def testDependencies = rootProject.ext.presentationTestDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -58,23 +56,14 @@ dependencies {
 
     implementation dependencies.archLifecyle
 
-    implementation dependencies.room
-    implementation dependencies.rxRoom
-    kapt dependencies.roomCompiler
+    implementation dependencies.navigationFragment
+    implementation dependencies.navigationUi
 
     implementation dependencies.koin
     implementation dependencies.koinViewModel
 
-    implementation dependencies.stetho
-    implementation dependencies.stethoOkHttp
-
     implementation dependencies.rxKotlin
     implementation dependencies.rxAndroid
-
-    implementation dependencies.retrofit
-    implementation dependencies.retrofitGsonConverter
-    implementation dependencies.retrofitRxJava2Adapter
-    implementation dependencies.retrofitLog
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.runner
@@ -82,13 +71,11 @@ dependencies {
 
     testImplementation testDependencies.mockitoKotlin
 
-    testImplementation testDependencies.archCore
-
     testImplementation testDependencies.koin
+
+    testImplementation testDependencies.archCore
 
     testImplementation testDependencies.robolectric
 
-    implementation project(':presentation')
-    implementation project(':data')
     implementation project(':domain')
 }

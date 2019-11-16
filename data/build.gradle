@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -8,8 +8,6 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId = rootProject.ext.applicationId
-
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
@@ -17,8 +15,10 @@ android {
 
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
 
-        dataBinding {
-            enabled = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
         }
     }
 
@@ -39,37 +39,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
-
 dependencies {
-    def dependencies = rootProject.ext.appDependencies
-    def testDependencies = rootProject.ext.appTestDependencies
+    def dependencies = rootProject.ext.dataDependencies
+    def testDependencies = rootProject.ext.dataTestDependencies
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     implementation dependencies.kotlin
 
-    implementation dependencies.appCompat
-    implementation dependencies.constraint
-    implementation dependencies.design
-    implementation dependencies.cardView
-
-    implementation dependencies.archLifecyle
+    implementation dependencies.rxKotlin
+    implementation dependencies.rxAndroid
 
     implementation dependencies.room
     implementation dependencies.rxRoom
     kapt dependencies.roomCompiler
-
-    implementation dependencies.koin
-    implementation dependencies.koinViewModel
-
-    implementation dependencies.stetho
-    implementation dependencies.stethoOkHttp
-
-    implementation dependencies.rxKotlin
-    implementation dependencies.rxAndroid
 
     implementation dependencies.retrofit
     implementation dependencies.retrofitGsonConverter
@@ -78,17 +63,9 @@ dependencies {
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.runner
-    androidTestImplementation testDependencies.espresso
-
     testImplementation testDependencies.mockitoKotlin
 
     testImplementation testDependencies.archCore
 
-    testImplementation testDependencies.koin
-
-    testImplementation testDependencies.robolectric
-
-    implementation project(':presentation')
-    implementation project(':data')
     implementation project(':domain')
 }
