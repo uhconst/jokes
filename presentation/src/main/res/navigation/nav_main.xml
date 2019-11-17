@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/jokesListFragment"
-        android:name="com.uhc.presentation.jokes.JokeListFragment"
+        android:name="com.uhc.presentation.joke.JokesListFragment"
         android:label="LoginFragment"
         tools:layout="@layout/jokes_list_fragment" />
 </navigation>
