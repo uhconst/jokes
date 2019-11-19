@@ -5,8 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.uhc.data.R
-import com.uhc.data.local.db.client.JokeDao
-import com.uhc.data.local.db.client.JokeEntity
+import com.uhc.data.local.db.joke.JokeDao
+import com.uhc.data.local.db.joke.JokeEntity
 
 /**
  * Created by Constancio on 2019-11-16.
