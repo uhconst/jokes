@@ -12,4 +12,6 @@ val dataModule = module {
     single { AppDatabase.createDatabase(androidApplication()) }
 
     single { get<AppDatabase>().jokeDao() }
+
+    factory { provideJokeApi(get()) }
 }

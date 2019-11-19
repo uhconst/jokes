@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "joke")
 data class JokeEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long? = null
+    @PrimaryKey
+    val id: Long,
 
-    // TODO: add other columns
+    val joke: String
 )
