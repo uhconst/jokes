@@ -1,4 +1,4 @@
-package com.uhc.data.local.db.client
+package com.uhc.data.local.db.joke
 
 import androidx.room.Dao
 
