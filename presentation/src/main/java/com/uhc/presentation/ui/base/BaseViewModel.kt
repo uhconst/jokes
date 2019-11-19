@@ -4,6 +4,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.ViewModel
 import com.uhc.domain.exception.DefaultException
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -57,6 +58,28 @@ abstract class BaseViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 complete,
+                {
+                    when (it) {
+                        is DefaultException -> error?.invoke(it)
+                        else -> error?.invoke(DefaultException())
+                    }
+                }
+            )
+
+        compositeDisposable.add(disposable)
+
+        return disposable
+    }
+
+    protected fun <T> subscribeObservable(
+        observable: Observable<T>,
+        success: ((T) -> Unit)? = null,
+        error: ((DefaultException) -> Unit)? = null
+    ): Disposable {
+        val disposable = observable
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                success,
                 {
                     when (it) {
                         is DefaultException -> error?.invoke(it)
