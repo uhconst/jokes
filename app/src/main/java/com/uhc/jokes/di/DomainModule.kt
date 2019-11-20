@@ -2,7 +2,6 @@ package com.uhc.jokes.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.uhc.data.proxy.JokeProxyImpl
-import com.uhc.data.remote.JokeApi
 import com.uhc.data.repository.JokeRepositoryImpl
 import com.uhc.domain.interactor.GetRandomJokesUseCase
 import com.uhc.domain.proxy.JokeProxy
@@ -11,6 +10,7 @@ import com.uhc.jokes.BuildConfig
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
@@ -32,9 +32,10 @@ val domainModule = module {
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BuildConfig.API_URL)
         .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
 
@@ -43,8 +44,4 @@ fun provideOkHttpClient(stethoInterceptor: StethoInterceptor): OkHttpClient {
         .newBuilder()
         .addInterceptor(stethoInterceptor)
         .build()
-}
-
-fun provideJokeApi(retrofit: Retrofit): JokeApi {
-    return retrofit.create(JokeApi::class.java)
 }
