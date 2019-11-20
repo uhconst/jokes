@@ -3,7 +3,6 @@ package com.uhc.jokes.di
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.uhc.data.proxy.JokeProxyImpl
 import com.uhc.data.repository.JokeRepositoryImpl
-import com.uhc.domain.interactor.GetRandomJokesUseCase
 import com.uhc.domain.proxy.JokeProxy
 import com.uhc.domain.repository.JokeRepository
 import com.uhc.jokes.BuildConfig
@@ -26,8 +25,6 @@ val domainModule = module {
     single<JokeProxy> { JokeProxyImpl(get(), get()) }
 
     single<JokeRepository> { JokeRepositoryImpl(get(), get()) }
-
-    factory { GetRandomJokesUseCase(get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
