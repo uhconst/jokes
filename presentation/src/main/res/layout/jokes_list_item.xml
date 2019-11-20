@@ -14,6 +14,10 @@
         android:id="@+id/joke_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_horizontal_margin"
+        android:layout_marginTop="@dimen/list_item_margin"
+        android:layout_marginEnd="@dimen/default_horizontal_margin"
+        android:layout_marginBottom="@dimen/list_item_margin"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardElevation="@dimen/cardview_default_elevation">
 
@@ -26,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_margin="@dimen/default_margin"
                 android:text="@{joke.joke}"
                 tools:text="Knock knock..." />
 
