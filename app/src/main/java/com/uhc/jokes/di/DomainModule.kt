@@ -40,8 +40,7 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
 }
 
 fun provideOkHttpClient(stethoInterceptor: StethoInterceptor): OkHttpClient {
-    return OkHttpClient()
-        .newBuilder()
-        .addInterceptor(stethoInterceptor)
+    return OkHttpClient.Builder()
+        .addNetworkInterceptor(stethoInterceptor)
         .build()
 }
