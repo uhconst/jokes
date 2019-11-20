@@ -12,5 +12,5 @@ interface JokeRepository {
     fun observeJokes(limit: Int): Observable<List<Joke>>
 
     /** Makes call to update the local DB from a remote source. */
-    fun loadRandomJokes(limit: Int): Completable
+    fun loadRemoteRandomJokes(limit: Int): Completable
 }

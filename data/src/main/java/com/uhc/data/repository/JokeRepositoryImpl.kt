@@ -25,7 +25,7 @@ class JokeRepositoryImpl(
             }
             .subscribeOn(Schedulers.io())
 
-    override fun loadRandomJokes(limit: Int): Completable =
+    override fun loadRemoteRandomJokes(limit: Int): Completable =
         jokeProxy.loadRandomJokes(limit)
 
     private fun List<JokeEntity>.toJoke(): List<Joke> =
