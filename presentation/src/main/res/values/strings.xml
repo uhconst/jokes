@@ -3,4 +3,5 @@
 
     <!-- JOKES LIST -->
     <string name="label_jokes_list">Jokes List</string>
+    <string name="message_jokes_error">Something went wrong…</string>
 </resources>
