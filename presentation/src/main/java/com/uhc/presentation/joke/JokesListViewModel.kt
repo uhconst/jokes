@@ -15,7 +15,8 @@ class JokesListViewModel(
     private val jokeRepo: JokeRepository
 ) : BaseViewModel() {
 
-    private val TAG = JokesListViewModel::class.java.name
+    val tag = JokesListViewModel::class.java.name
+    val jokesRange = (8..21)
 
     private val _jokes = MutableLiveData<List<Joke>>()
     val jokes: LiveData<List<Joke>> get() = _jokes
@@ -23,13 +24,13 @@ class JokesListViewModel(
     private val _events = EventLiveData<JokeListEvents>()
     val events: LiveData<JokeListEvents> get() = _events
 
-    init {
+    fun fetchRemoteJokes() {
         generateRandomNumber().let { randomNumber ->
             subscribeCompletable(
                 observable = jokeRepo.loadRemoteRandomJokes(randomNumber)
                     .doOnSubscribe { startProgress() }
                     .doFinally { stopProgress() },
-                complete = { Log.d(TAG, "Fetch success") },
+                complete = { Log.d(tag, "Fetch success") },
                 error = { _events.postValue(JokeListEvents.JOKES_ERROR) }
             )
 
@@ -37,7 +38,7 @@ class JokesListViewModel(
         }
     }
 
-    private fun observeJokes(randomNumber: Int) {
+    fun observeJokes(randomNumber: Int) {
         subscribeObservable(
             observable = jokeRepo.observeJokes(randomNumber)
                 .doOnSubscribe { startProgress() }
@@ -47,12 +48,9 @@ class JokesListViewModel(
         )
     }
 
-    private fun generateRandomNumber(): Int {
-        (8..21).random().let { randomNumber ->
-            Log.d(TAG, "Random number generated: $randomNumber")
-            return randomNumber
-        }
-    }
+    fun generateRandomNumber(): Int =
+        jokesRange.random()
+
 }
 
 enum class JokeListEvents {

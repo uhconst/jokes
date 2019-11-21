@@ -29,6 +29,8 @@ class JokesListFragment : BaseFragment<JokesListFragmentBinding>() {
 
         binding.viewModel = viewModel
 
+        viewModel.fetchRemoteJokes()
+
         setupJokesList()
         setupToobar(toolbar)
 
