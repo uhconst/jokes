@@ -13,8 +13,6 @@ Jokes are persisted for offline viewing
 - [Constraint layout](https://developer.android.com/training/constraint-layout/index.html)
 - [OkHttp](https://github.com/square/okhttp)
 
-//todo also navigation google is here
-
 ## Jokes Screen
 - Jokes list
 
