@@ -23,7 +23,7 @@ Jokes are persisted for offline viewing
 - Works offline
 - Using Navigation component
 - Swipe to refresh
-- DEBUG and REALEASE mode
+- DEBUG and RELEASE mode
 - Project hosted on [GitHub](https://github.com/uhconst/jokes.git)
 
 ## Developed by
